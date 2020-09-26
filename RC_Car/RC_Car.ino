@@ -6,7 +6,7 @@
 #define in3 6
 #define in4 7
 
-
+char data = 0;
 void setup() {
   pinMode(enA, OUTPUT);
   pinMode(enB, OUTPUT);
@@ -15,12 +15,6 @@ void setup() {
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
   
-  // Set initial rotation direction
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, HIGH);
 
   Serial.begin(9600);
 }
@@ -30,10 +24,21 @@ void loop() {
   analogWrite(enA,255);
   analogWrite(enB, 255);
 
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, HIGH);
-
+  // Read data
+  data = Serial.read();
+  if (data > 0) {
+      Serial.print(data);
+      Serial.println("");
+     if (data  == 'u') {
+      //execute up function
+      Serial.println("DID THIS WORK");
+      digitalWrite(in1, LOW);
+      digitalWrite(in2, HIGH);
+    
+      digitalWrite(in3, LOW);
+      digitalWrite(in4, HIGH);
+  }
+  }
+ 
+ 
 }
