@@ -7,6 +7,14 @@
 #define in4 7
 
 char data = 0;
+
+const int trigPin = 3;
+const int echoPin = 2;
+
+// defines variables
+long duration;
+int distance;
+
 void setup() {
   pinMode(enA, OUTPUT);
   pinMode(enB, OUTPUT);
@@ -14,7 +22,9 @@ void setup() {
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
-  
+
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
 
   Serial.begin(9600);
 }
@@ -39,6 +49,22 @@ void loop() {
       digitalWrite(in4, HIGH);
   }
   }
- 
- 
+
+  //ultrasonic sensor code below
+
+    // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculating the distance
+  distance= duration*0.034/2;
+  // Prints the distance on the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println("");
 }
